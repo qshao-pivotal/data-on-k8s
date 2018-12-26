@@ -6,4 +6,4 @@ steps:
     image: 'codefresh/cfstep-helm'
     commands:
       - cd chart-values/
-      - helm lint -f *.yaml
+      - helm lint -f *-values.yaml
