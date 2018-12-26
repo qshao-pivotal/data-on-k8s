@@ -39,7 +39,7 @@ priorityClassName: ""
 ##
 existingSecret: ""
 accessKey: "qshao"
-secretKey: "qshao"
+secretKey: "qshaopivotal"
 configPath: "/root/.minio/"
 mountPath: "/export"
 replicas: 4
