@@ -1,0 +1,8 @@
+version: '1.0'
+
+steps:
+  HelmLint:
+    title: Helm Lint all values.yaml
+    image: 'codefresh/cfstep-helm'
+    commands:
+      - helm lint -f chart-values/*.yaml
