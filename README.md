@@ -8,5 +8,5 @@ Data Platform on Kubernetes
 ## Installation
 ### Minio
 ```
-helm install stable/minio --name qshao -f chart-values/minio-chart-values.yaml
+helm install stable/minio --name qshao-minio -f chart-values/minio-chart-values.yaml
 ```
