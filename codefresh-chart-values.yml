@@ -6,4 +6,5 @@ steps:
     image: 'codefresh/cfstep-helm'
     commands:
       - cd event-driven/chart-values/
-      - helm lint -f *-values.yaml
+      - helm lint -f confluent-chart-values.yaml
+      - helm lint -f minio-chart-values.yaml
