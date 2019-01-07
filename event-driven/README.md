@@ -6,11 +6,11 @@
 ## Installation
 ### Minio
 ```
-helm install stable/minio --name qshao-minio -f ./chart-values/minio-chart-values.yaml
+helm install stable/minio --name event-driven-minio -f ./chart-values/minio-chart-values.yaml
 ```
 ### Confluent Kafka
 ```
 helm repo add confluentinc https://confluentinc.github.io/cp-helm-charts/
 helm repo update
-helm install confluent/cp-helm-charts --name event-driven-confluent -f ./chart-values/confluent-chart-values.yaml
+helm install confluentinc/cp-helm-charts --name event-driven-confluent -f ./chart-values/confluent-chart-values.yaml
 ```
