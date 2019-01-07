@@ -5,5 +5,5 @@ steps:
     title: Helm Lint all values yaml file under chart-values/
     image: 'codefresh/cfstep-helm'
     commands:
-      - cd chart-values/
+      - cd event-driven/chart-values/
       - helm lint -f *-values.yaml
