@@ -276,8 +276,8 @@ minioConfig:
     database: ""
   kafka:
     enable: true
-    brokers: '["qshao-cp-kafka-headless:9092"]'
-    topic: "bucket-upload-event"
+    brokers: '["event-driven-confluent-cp-kafka-headless:9092"]'
+    topic: "images-bucket-event"
   webhook:
     enable: false
     endpoint: ""

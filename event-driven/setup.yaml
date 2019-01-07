@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "even-driven-setup"
+spec:
+  template:
+    spec:
+      containers:
+        - name: images-bucket-event-topic-creation
+          image: confluentinc/cp-kafka:5.0.1
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+            - |
+              # Delete the topic if it exists
+              kafka-topics --zookeeper event-driven-confluent-cp-zookeeper --topic images-bucket-event --delete --if-exists
+              # Create the topic
+              kafka-topics --zookeeper event-driven-confluent-cp-zookeeper --topic images-bucket-event --create --partitions 1 --replication-factor 1 --if-not-exists
+        - name: images-bucket-creation
+          image: minio/mc
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: ACCESSKEY
+            valueFrom:
+              secretKeyRef:
+                name: event-driven-minio
+                key: accesskey
+          - name: SECRETKEY
+            valueFrom:
+              secretKeyRef:
+                name: event-driven-minio
+                key: secretkey
+          command:
+            - sh
+            - -c
+            - |
+              # Add event-driven-minio to client host list
+              mc config host add event-driven-minio http://event-driven-minio:9000 $ACCESSKEY $SECRETKEY S3v4
+              # Create buckets: thumbnails and images
+              mc mb event-driven-minio/thumbnails --ignore-existing
+              mc mb event-driven-minio/images --ignore-existing
+              # Add bucket event notifications to images bucket
+              mc event remove event-driven-minio/images arn:minio:sqs:us-east-1:1:kafka
+              mc event add event-driven-minio/images arn:minio:sqs:us-east-1:1:kafka --event put --suffix .jpg
+      restartPolicy: Never
+  backoffLimit: 1
