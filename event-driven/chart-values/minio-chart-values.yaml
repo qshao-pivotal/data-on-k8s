@@ -38,8 +38,8 @@ priorityClassName: ""
 ## Distributed Minio ref: https://docs.minio.io/docs/distributed-minio-quickstart-guide
 ##
 existingSecret: ""
-accessKey: "qshao"
-secretKey: "qshaopivotal"
+accessKey: "minio"
+secretKey: "minio12345"
 configPath: "/root/.minio/"
 mountPath: "/export"
 replicas: 4
