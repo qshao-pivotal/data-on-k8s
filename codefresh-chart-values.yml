@@ -8,3 +8,4 @@ steps:
       - cd event-driven/chart-values/
       - helm lint -f confluent-chart-values.yaml
       - helm lint -f minio-chart-values.yaml
+      - helm lint -f mongodb-chart-values.yaml
