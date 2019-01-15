@@ -18,7 +18,7 @@ spec:
               # Create the topic
               kafka-topics --zookeeper event-driven-confluent-cp-zookeeper --topic images-bucket-event --create --partitions 1 --replication-factor 1 --if-not-exists
         - name: images-bucket-creation
-          image: minio/mc
+          image: minio/mc:RELEASE.2018-12-05T22-59-07Z
           imagePullPolicy: IfNotPresent
           env:
           - name: ACCESSKEY
