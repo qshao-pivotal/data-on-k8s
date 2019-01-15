@@ -18,7 +18,11 @@ Config Minio Notification desitination with Kafka info in [minio-chart-values.ya
 ```
 helm install stable/minio --name event-driven-minio -f ./chart-values/minio-chart-values.yaml --version 2.3.0
 ```
-### 3. Create buckets, topic and event notification
+### 3. Install MongoDB
+```
+helm install stable/mongodb --name event-driven-mongodb -f ./chart-values/mongodb-chart-values.yaml
+```
+### 4. Create buckets, topic and event notification
 ```
 kubectl apply -f ./setup.yaml
 ```
