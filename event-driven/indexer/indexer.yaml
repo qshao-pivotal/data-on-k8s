@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indexer
+  labels:
+    app: indexer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: indexer
+  template:
+    metadata:
+      labels:
+        app: indexer
+    spec:
+      containers:
+      - name: indexer
+        image: azureq/indexer:1.0
+        imagePullPolicy: Always
+        env:
+        - name: MONGODB_ROOT_USER
+          value: root
+        - name: MONGODB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: event-driven-mongodb
+              key: mongodb-root-password
+        - name: MONGODB_SERVER
+          value: event-driven-mongodb:27017
+        - name: MONGODB_DATABASE
+          value: mydb
+        - name: MONGODB_METADATA_TABLE
+          value: metadata
+        - name: KAFKA_BOOTSTRAP_SERVERS
+          value: event-driven-confluent-cp-kafka:9092
+        - name: IMAGES_BUCKET_EVENT_TOPIC
+          value: images-bucket-event
+        - name: THUMBNAILS_EVENT_TOPIC
+          value: thumbnails-event
