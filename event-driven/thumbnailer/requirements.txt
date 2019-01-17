@@ -1,0 +1,4 @@
+minio
+confluent-kafka
+Pillow
+pymongo

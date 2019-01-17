@@ -45,3 +45,13 @@ Indexer does:
 ```
 kubectl apply -f ./indexer/indexer.yaml
 ```
+### 6. Deploy thumbnailer application 
+thumbnailer does:
+- Consume message from `thumbnails-event` topic
+- Extract ObjectID from message and query metadata in MongoDB to get image url 
+- Read the original image and create a thumbnail for it
+- Upload the thumbnail to `thumbnails` bucket
+- Update metadata in MongoDB with thumbnail url
+```
+kubectl apply -f ./thumbnailer/thumbnailer.yaml
+```
