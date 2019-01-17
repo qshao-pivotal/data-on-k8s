@@ -37,3 +37,11 @@ This Kubernetes Job contains:
   - Create `thumbnails-event` topic in Kafka
   - Create `images` and `thumbnails` buckets in Minio
   - Create event notification for `images` bucket to publish `put` event to `images-bucjet-event` topic in Kafka
+### 5. Deploy indexer application 
+Indexer does:
+- Consume notification message from `images-bucket-event` topic
+- Extract useful record from message and insert into MongoDB
+- Send the unique ObjectID of the record to `thumbnails-event` topic
+```
+kubectl apply -f ./indexer/indexer.yaml
+```
