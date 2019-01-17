@@ -27,7 +27,7 @@ helm install stable/mongodb --name event-driven-mongodb -f ./chart-values/mongod
 kubectl apply -f ./setup.yaml
 ```
 This Kubernetes Job contains:
-  - Create `images-bucjet-event` topic in Kafka
+  - Create `images-bucket-event` topic in Kafka
   - Create `thumbnails-event` topic in Kafka
   - Create `images` and `thumbnails` buckets in Minio
   - Create event notification for `images` bucket to publish `put` event to `images-bucjet-event` topic in Kafka
