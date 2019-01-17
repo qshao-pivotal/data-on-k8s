@@ -3,8 +3,9 @@
 ## Architecture
 ![](event-driven-architecture.png)
 ## chart-values
-  - minio-chart-values.yaml: override default values.yaml of [Minio Helm Chart](https://github.com/helm/charts/tree/master/stable/minio)
-  - confluent-chart-values.yaml: override default values.yaml of [Confluent Helm Chart](https://github.com/confluentinc/cp-helm-charts)
+  - [minio-chart-values.yaml](chart-values/minio-chart-values.yaml): override default values.yaml of [Minio Helm Chart](https://github.com/helm/charts/tree/master/stable/minio)
+  - [confluent-chart-values.yaml](chart-values/confluent-chart-values.yaml): override default values.yaml of [Confluent Helm Chart](https://github.com/confluentinc/cp-helm-charts)
+  - [mongodb-chart-values.yaml](chart-values/mongodb-chart-values.yaml): override default values.yaml of [MongoDB Helm Chart](https://github.com/helm/charts/tree/master/stable/mongodb)
 ## Setup
 ### 1. Install Confluent Kafka
 Install a 3 nodes Zookeeper and 3 nodes Kafka cluster with a proper size config
@@ -22,7 +23,7 @@ helm install stable/minio --name event-driven-minio -f ./chart-values/minio-char
 ```
 helm install stable/mongodb --name event-driven-mongodb -f ./chart-values/mongodb-chart-values.yaml
 ```
-### 4. Create buckets, topic and event notification
+### 4. Create Minio buckets, buccket event notifications and Kafka topics 
 ```
 kubectl apply -f ./setup.yaml
 ```
