@@ -22,17 +22,17 @@ spec:
         - name: MINIO_ACCESSKEY
           valueFrom:
             secretKeyRef:
-              name: event-driven-minio
+              name: blobstore-index-minio
               key: accesskey
         - name: MINIO_SECRETKEY
           valueFrom:
             secretKeyRef:
-              name: event-driven-minio
+              name: blobstore-index-minio
               key: secretkey
         - name: MINIO_ENDPOINT
-          value: event-driven-minio:9000
+          value: blobstore-index-minio:9000
         - name: KAFKA_BOOTSTRAP_SERVERS
-          value: event-driven-confluent-cp-kafka:9092
+          value: blobstore-index-confluent-cp-kafka:9092
         - name: IMAGES_BUCKET_EVENT_TOPIC
           value: images-bucket-event
         - name: THUMBNAILS_EVENT_TOPIC
@@ -42,10 +42,10 @@ spec:
         - name: MONGODB_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: event-driven-mongodb
+              name: blobstore-index-mongodb
               key: mongodb-root-password
         - name: MONGODB_SERVER
-          value: event-driven-mongodb:27017
+          value: blobstore-index-mongodb:27017
         - name: MONGODB_DATABASE
           value: mydb
         - name: MONGODB_METADATA_TABLE
