@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "petfinder-adoption-prediction-to-minio"
+spec:
+  template:
+    spec:
+      containers:
+        - name: petfinder-adoption-prediction-to-minio
+          image: qshaopivotal/petfinder-adoption-prediction:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+            - |
+              cd /data
+              tar zxvf petfinder-adoption-prediction.tar.gz
+              cd petfinder-adoption-prediction
+
+              mc config host add data-warehousing-minio http://data-warehousing-minio:9000 minio minio12345
+              mc mb data-warehousing-minio/petfinder-adoption-prediction
+
+              mc cp breed_labels.csv data-warehousing-minio/petfinder-adoption-prediction/
+              mc cp color_labels.csv data-warehousing-minio/petfinder-adoption-prediction/
+              mc cp state_labels.csv data-warehousing-minio/petfinder-adoption-prediction/
+              mc cp train.csv data-warehousing-minio/petfinder-adoption-prediction/
+              mc cp test/test.csv data-warehousing-minio/petfinder-adoption-prediction/
+
+              mc cp train_images data-warehousing-minio/petfinder-adoption-prediction/ --recursive
+              mc cp train_metadata data-warehousing-minio/petfinder-adoption-prediction/ --recursive
+              mc cp train_sentiment data-warehousing-minio/petfinder-adoption-prediction/ --recursive
+
+              mc cp test_images data-warehousing-minio/petfinder-adoption-prediction/ --recursive
+              mc cp test_metadata data-warehousing-minio/petfinder-adoption-prediction/ --recursive
+              mc cp test_sentiment data-warehousing-minio/petfinder-adoption-prediction/ --recursive
+      restartPolicy: Never
+  backoffLimit: 1

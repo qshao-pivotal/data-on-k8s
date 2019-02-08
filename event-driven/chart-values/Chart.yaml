@@ -1,7 +1,0 @@
-apiVersion: v1
-name: chart-values
-description: Dummy Chart.yaml for helm lint
-version: 0.1.0
-maintainers:
-  - name: Qi Shao
-    email: qshao@pivotal.io

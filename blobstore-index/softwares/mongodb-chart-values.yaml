@@ -46,9 +46,9 @@ mongodbRootPassword: mongodb
 ## MongoDB custom user and database
 ## ref: https://github.com/bitnami/bitnami-docker-mongodb/blob/master/README.md#creating-a-user-and-database-on-first-run
 ##
-# mongodbUsername: eventdriven
-# mongodbPassword: eventdriven
-# mongodbDatabase: eventdriven
+# mongodbUsername: mongodb
+# mongodbPassword: mongodb
+# mongodbDatabase: mongodb
 
 
 ## Whether enable/disable IPv6 on MongoDB
