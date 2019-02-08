@@ -276,7 +276,7 @@ minioConfig:
     database: ""
   kafka:
     enable: true
-    brokers: '["event-driven-confluent-cp-kafka-headless:9092"]'
+    brokers: '["blobstore-index-confluent-cp-kafka-headless:9092"]'
     topic: "images-bucket-event"
   webhook:
     enable: false
