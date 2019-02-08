@@ -1,5 +1,5 @@
 # Data On Kubernetes
 
-Data on Kubernetes
+Reference Data Architectures on Kubernetes
 
-[Event Driven Architecture](/event-driven/README.md)
+[Blobstore Index](/blobstore-index/README.md)
