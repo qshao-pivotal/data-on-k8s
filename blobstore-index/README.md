@@ -1,49 +1,49 @@
-# Event Driven [![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/qshao-pivotal_marketplace/qshao-pivotal%2Fdata-on-k8s%2Fdata-on-k8s?branch=event-driven&key=eyJhbGciOiJIUzI1NiJ9.NWMxYWE4MTZlNWFiYjUwNGU1MjljNTY3.6aWX049NTXW6u_sh7DqsbusOf606eHaoVUw7wD-NHeo&type=cf-2)]( https://g.codefresh.io/pipelines/data-on-k8s/builds?repoOwner=qshao-pivotal&repoName=data-on-k8s&serviceName=qshao-pivotal%2Fdata-on-k8s&filter=trigger:build~Build;branch:event-driven;pipeline:5c400cf7b131c12cfe2e69ca~data-on-k8s)
+# Blobstore Index [![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/qshao-pivotal_marketplace/qshao-pivotal%2Fdata-on-k8s%2Fdata-on-k8s?branch=blobstore-index&key=eyJhbGciOiJIUzI1NiJ9.NWMxYWE4MTZlNWFiYjUwNGU1MjljNTY3.6aWX049NTXW6u_sh7DqsbusOf606eHaoVUw7wD-NHeo&type=cf-2)]( https://g.codefresh.io/pipelines/data-on-k8s/builds?repoOwner=qshao-pivotal&repoName=data-on-k8s&serviceName=qshao-pivotal%2Fdata-on-k8s&filter=trigger:build~Build;branch:blobstore-index;pipeline:5c400cf7b131c12cfe2e69ca~data-on-k8s)
 
 ## Architecture
 
-![Event Driven Architecture](event-driven-architecture.png)
+![Blobstore Index Architecture](blobstore-index-architecture.png)
 
-## chart-values
+## softwares
 
-- [minio-chart-values.yaml](chart-values/minio-chart-values.yaml): override default values.yaml of [Minio Helm Chart](https://github.com/helm/charts/tree/master/stable/minio)
+- [minio-chart-values.yaml](softwares/minio-chart-values.yaml): override default values.yaml of [Minio Helm Chart](https://github.com/helm/charts/tree/master/stable/minio)
 
-- [confluent-chart-values.yaml](chart-values/confluent-chart-values.yaml): override default values.yaml of [Confluent Helm Chart](https://github.com/confluentinc/cp-helm-charts)
+- [confluent-chart-values.yaml](softwares/confluent-chart-values.yaml): override default values.yaml of [Confluent Helm Chart](https://github.com/confluentinc/cp-helm-charts)
 
-- [mongodb-chart-values.yaml](chart-values/mongodb-chart-values.yaml): override default values.yaml of [MongoDB Helm Chart](https://github.com/helm/charts/tree/master/stable/mongodb)
+- [mongodb-chart-values.yaml](softwares/mongodb-chart-values.yaml): override default values.yaml of [MongoDB Helm Chart](https://github.com/helm/charts/tree/master/stable/mongodb)
 
 ## Setup
 
-### 0. Change directory to event-driven/
+### 0. Change directory to blobstore-index/
 
 ```sh
-cd event-driven
+cd blobstore-index
 ```
 
 ### 1. Install Confluent Kafka
 
-Install Confluent Helm Chart with overridden [confluent-chart-values.yaml](chart-values/confluent-chart-values.yaml)
+Install Confluent Helm Chart with overridden [confluent-chart-values.yaml](softwares/confluent-chart-values.yaml)
 
 ```sh
 helm repo add confluentinc https://confluentinc.github.io/cp-helm-charts/
 helm repo update
-helm install confluentinc/cp-helm-charts --name event-driven-confluent -f ./chart-values/confluent-chart-values.yaml
+helm install confluentinc/cp-helm-charts --name blobstore-index-confluent -f ./softwares/confluent-chart-values.yaml
 ```
 
 ### 2. Install Minio
 
-Config Minio Notification destination with Kafka info in [minio-chart-values.yaml](chart-values/minio-chart-values.yaml)
+Config Minio Notification destination with Kafka info in [minio-chart-values.yaml](softwares/minio-chart-values.yaml)
 
 ```sh
-helm install stable/minio --name event-driven-minio -f ./chart-values/minio-chart-values.yaml --version 2.3.0
+helm install stable/minio --name blobstore-index-minio -f ./softwares/minio-chart-values.yaml --version 2.3.0
 ```
 
 ### 3. Install MongoDB
 
-Install MongoDB with overridden [mongo-chart-values.yaml](chart-values/mongodb-chart-values.yaml)
+Install MongoDB with overridden [mongo-chart-values.yaml](softwares/mongodb-chart-values.yaml)
 
 ```sh
-helm install stable/mongodb --name event-driven-mongodb -f ./chart-values/mongodb-chart-values.yaml
+helm install stable/mongodb --name blobstore-index-mongodb -f ./softwares/mongodb-chart-values.yaml
 ```
 
 ### 4. Create Minio buckets, bucket event notifications and Kafka topics

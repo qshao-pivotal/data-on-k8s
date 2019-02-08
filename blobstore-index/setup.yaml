@@ -14,8 +14,8 @@ spec:
             - -c
             - |
               # Create the topic if not exist
-              kafka-topics --zookeeper event-driven-confluent-cp-zookeeper --topic images-bucket-event --create --partitions 1 --replication-factor 1 --if-not-exists
-              kafka-topics --zookeeper event-driven-confluent-cp-zookeeper --topic thumbnails-event --create --partitions 1 --replication-factor 1 --if-not-exists
+              kafka-topics --zookeeper blobstore-index-confluent-cp-zookeeper --topic images-bucket-event --create --partitions 1 --replication-factor 1 --if-not-exists
+              kafka-topics --zookeeper blobstore-index-confluent-cp-zookeeper --topic thumbnails-event --create --partitions 1 --replication-factor 1 --if-not-exists
         - name: images-bucket-creation
           image: minio/mc:RELEASE.2018-12-05T22-59-07Z
           imagePullPolicy: IfNotPresent
@@ -23,24 +23,24 @@ spec:
           - name: ACCESSKEY
             valueFrom:
               secretKeyRef:
-                name: event-driven-minio
+                name: blobstore-index-minio
                 key: accesskey
           - name: SECRETKEY
             valueFrom:
               secretKeyRef:
-                name: event-driven-minio
+                name: blobstore-index-minio
                 key: secretkey
           command:
             - sh
             - -c
             - |
-              # Add event-driven-minio to client host list
-              mc config host add event-driven-minio http://event-driven-minio:9000 $ACCESSKEY $SECRETKEY S3v4
+              # Add blobstore-index-minio to client host list
+              mc config host add blobstore-index-minio http://blobstore-index-minio:9000 $ACCESSKEY $SECRETKEY S3v4
               # Create buckets: thumbnails and images
-              mc mb event-driven-minio/thumbnails --ignore-existing
-              mc mb event-driven-minio/images --ignore-existing
+              mc mb blobstore-index-minio/thumbnails --ignore-existing
+              mc mb blobstore-index-minio/images --ignore-existing
               # Add bucket event notifications to images bucket
-              mc event remove event-driven-minio/images arn:minio:sqs:us-east-1:1:kafka
-              mc event add event-driven-minio/images arn:minio:sqs:us-east-1:1:kafka --event put --suffix .jpg
+              mc event remove blobstore-index-minio/images arn:minio:sqs:us-east-1:1:kafka
+              mc event add blobstore-index-minio/images arn:minio:sqs:us-east-1:1:kafka --event put --suffix .jpg
       restartPolicy: Never
   backoffLimit: 1
