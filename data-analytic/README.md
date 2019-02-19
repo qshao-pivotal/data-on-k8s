@@ -1,4 +1,4 @@
-# Data Warehousing
+# Data Analytic
 
 ## Architecture
 
@@ -11,10 +11,10 @@
 
 ## Setup
 
-### 0. Change directory to data-warehousing/
+### 0. Change directory to data-analytic/
 
 ```sh
-cd data-warehousing
+cd data-analytic
 ```
 
 ### 1. Install Minio
